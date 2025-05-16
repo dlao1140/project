@@ -1,0 +1,4 @@
+#!/bin/bash
+
+DEFAULT_JVM_OPTS=""
+exec java $DEFAULT_JVM_OPTS -jar gradle-wrapper.jar "$@"
