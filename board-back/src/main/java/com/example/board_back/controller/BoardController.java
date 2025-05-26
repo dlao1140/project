@@ -15,6 +15,7 @@ import com.example.board_back.dto.response.board.GetCommentListResponseDto;
 import com.example.board_back.dto.response.board.IncreaseViewCountResponseDto;
 import com.example.board_back.dto.response.board.PatchBoardResponseDto;
 import com.example.board_back.dto.response.board.DeleteBoardResponseDto;
+import com.example.board_back.dto.response.board.DeleteCommentResponseDto;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -157,6 +158,17 @@ public class BoardController {
         @AuthenticationPrincipal String email
     ) {
         ResponseEntity<? super DeleteBoardResponseDto> response = boardService.deleteBoard(boardNumber, email);
+        return response;
+    }
+
+
+    // ✨ 댓글 삭제 API 엔드포인트 추가
+    @DeleteMapping("/comment/{commentNumber}") // 경로 예시: /api/v1/board/comment/{commentNumber}
+    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(
+        @PathVariable("commentNumber") Integer commentNumber,
+        @AuthenticationPrincipal String email
+    ) {
+        ResponseEntity<? super DeleteCommentResponseDto> response = boardService.deleteComment(commentNumber, email);
         return response;
     }
 

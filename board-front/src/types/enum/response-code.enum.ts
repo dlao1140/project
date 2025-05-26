@@ -10,10 +10,11 @@ enum ResponseCode{
     DUPLICATE_TEL_NUMBER = "DT",
     NOT_EXIST_USER = "NU",
     NOT_EXIST_BOARD = "NB",
+    NOT_EXIST_COMMENT = "NC",
 
     //HTTP Status Code 401
     SIGN_IN_FAIL = "SF",
-    AUTHRIZATION_FAIL = "AF",
+    AUTHORIZATION_FAIL = "AF",
 
     //HTTP Status Code 403
     NO_PERMISSION = "NP",

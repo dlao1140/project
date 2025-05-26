@@ -51,6 +51,12 @@ public class BoardEntity {
     public void increaseViewCount() {
         this.viewCount++;
     }
+    // ✨ 댓글 수 감소 메소드 추가
+    public void decreaseCommentCount() {
+        if (this.commentCount > 0) { // 댓글 수가 음수가 되지 않도록 방어
+            this.commentCount--;
+        }
+    }
 
     public void increaseFavoriteCount() {
         this.favoriteCount++;

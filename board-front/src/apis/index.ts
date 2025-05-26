@@ -9,6 +9,7 @@ import { GetPopularListResponseDto, GetRelationListResponoseDto } from "./respon
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from "./request/user";
 import { Cookies } from 'react-cookie'; 
 
+
 axios.defaults.withCredentials = true; // ✅ 쿠키 포함 요청 활성화
 
 axios.interceptors.request.use((config) => {
@@ -67,7 +68,7 @@ const PATCH_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/$
 const GET_COMMENT_LIST_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/comment-list`;
 const PUT_FAVORITE_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}/favorite`;
 const DELETE_BOARD_URL = (boardNumber: number | string) => `${API_DOMAIN}/board/${boardNumber}`;
-
+const DELETE_COMMENT_URL = (commentNumber: string | number) => `${API_DOMAIN}/board/comment/${commentNumber}`;
 
 
 export const getBoardRequest = async (boardNumber: number | string) => {
@@ -251,6 +252,20 @@ export const deleteBoardRequest = async (boardNumber: number | string, accessTok
         })
     return result;
 }
+// 댓글 삭제 요청 함수
+export const deleteCommentRequest = async (commentNumber: string | number, accessToken: string) => {
+    const result = await axios.delete(DELETE_COMMENT_URL(commentNumber), authorization(accessToken))
+        .then(response => {
+            const responseBody: ResponseDto = response.data; // ✨ 이렇게 ResponseDto 타입만 사용합니다.
+            return responseBody;
+        })
+        .catch(error => {
+            if (!error.response) return null;
+            const responseBody: ResponseDto = error.response.data;
+            return responseBody;
+        });
+    return result;
+};
 
 const GET_POPULAR_LIST_URL = () => `${API_DOMAIN}/search/popular-list`;
 const GET_RELATION_LIST_URL = (searchWord: string) => `${API_DOMAIN}/search/${searchWord}/relation-list`;

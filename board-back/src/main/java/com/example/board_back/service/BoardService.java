@@ -19,6 +19,7 @@ import com.example.board_back.dto.response.board.GetLatestBoardListResponseDto;
 import com.example.board_back.dto.response.board.GetTop3BoardListResponseDto;
 import com.example.board_back.dto.response.board.GetSearchBoardListResponseDto;
 import com.example.board_back.dto.response.board.GetUserBoardListResponseDto;
+import com.example.board_back.dto.response.board.DeleteCommentResponseDto;
 
 
 public interface BoardService {
@@ -35,5 +36,7 @@ public interface BoardService {
     ResponseEntity<? super PatchBoardResponseDto> patchBoard(PatchBoardRequestDto dto, Integer boardNumber, String email);
     ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
     ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
+    // ✨ 댓글 삭제 서비스 메소드 선언 추가
+    ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Integer commentNumber, String email);
     
 }

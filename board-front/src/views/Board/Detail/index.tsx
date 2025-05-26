@@ -16,6 +16,7 @@ import dayjs from 'dayjs';
 import { Cookies, useCookies } from 'react-cookie';
 import { PostCommentRequestDto } from 'apis/request/board';
 import { usePagination } from 'hooks';
+import { deleteCommentRequest } from 'apis'; // ✨ API 함수 import
 
 //         component: 게시물 상세 화면 컴포넌트      //
 export default function BoardDetail() {
@@ -184,7 +185,50 @@ export default function BoardDetail() {
     const [totalCommentCount, setTotalCommentCount] = useState<number>(0);
     //          state: 댓글 상태          //
     const [comment, setComment] = useState<string>('');
-    
+    // ✨ 댓글 삭제 처리 함수 추가
+    const handleDeleteComment = (commentNumber: number) => {
+        // boardNumber는 BoardDetail 스코프의 useParams()로 가져온 값을 사용합니다.
+        if (!boardNumber) {
+            alert('게시물 번호가 유효하지 않습니다.');
+            return;
+        }
+        if (!cookies.accessToken) {
+            alert('로그인이 필요합니다.');
+            return;
+        }
+
+        const isConfirm = window.confirm("댓글을 정말 삭제하시겠습니까?");
+        if (!isConfirm) return;
+
+        deleteCommentRequest(commentNumber, cookies.accessToken).then(deleteCommentResponseCallback);
+    };
+
+    // ✨ 댓글 삭제 API 응답 콜백 함수 추가
+    const deleteCommentResponseCallback = (responseBody: ResponseDto | null) => { // 타입은 DeleteCommentResponseDto | ResponseDto | null
+        if (!responseBody) {
+            alert('네트워크 응답이 없거나 요청에 실패했습니다.');
+            return;
+        }
+        const { code } = responseBody;
+
+        if (code === 'VF') alert('잘못된 접근입니다.');
+        else if (code === 'NU') alert('존재하지 않는 유저입니다.'); // 이 오류는 보통 토큰의 사용자가 유효하지 않을 때
+        else if (code === 'NB') alert('존재하지 않는 게시물입니다.');
+        else if (code === 'NC') alert('존재하지 않는 댓글입니다.'); // 백엔드에서 정의한 응답 코드
+        else if (code === 'AF') alert('인증에 실패했습니다.');
+        else if (code === 'NP') alert('권한이 없습니다.');
+        else if (code === 'DBE') alert('데이터베이스 오류입니다.');
+        else if (code === 'SU') {
+            alert('댓글이 삭제되었습니다.');
+            // 댓글 목록을 다시 불러와서 UI를 갱신합니다.
+            // 기존에 댓글 작성 후 목록을 다시 불러오는 로직과 동일합니다.
+            if (boardNumber) {
+                GetCommentListRequest(boardNumber).then(getCommentListResponse);
+            }
+        } else {
+            alert('알 수 없는 오류가 발생했습니다: ' + code);
+        }
+    };
     //          function: get favorite list response 처리 함수          //
     const getFavoriteListResponse = (responseBody: GetFavoriteLiseResponseDto | ResponseDto | null) => {
       if(!responseBody) return;
@@ -287,80 +331,98 @@ export default function BoardDetail() {
       GetCommentListRequest(boardNumber).then(getCommentListResponse);
     }, [boardNumber])
     //         render: 게시물 상세 하단 화면 컴포넌트 렌더링      //
-    return(
-      <div id='board-detail-bottom'>
+    return (
+    <div id='board-detail-bottom'>
         <div className='board-detail-bottom-button-box'>
-          <div className='board-detail-bottom-button-group'>
-            <div className='icon-button' onClick={onFavoriteClickHandler}>
-              {isFavorite ? 
-              <div className='icon favorite-fill-icon'></div> :
-              <div className='icon favorite-light-icon'></div>
-              }
+            {/* --- 좋아요 관련 버튼 그룹 --- */}
+            <div className='board-detail-bottom-button-group'>
+                <div className='icon-button' onClick={onFavoriteClickHandler}>
+                    {isFavorite ? 
+                        <div className='icon favorite-fill-icon'></div> :
+                        <div className='icon favorite-light-icon'></div>
+                    }
+                </div>
+                <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
+                <div className='icon-button' onClick={onShowFavoriteClickHandler}>
+                    {showFavorite ?
+                        <div className='icon up-light-icon'></div> :
+                        <div className='icon down-light-icon'></div>
+                    }
+                </div>
             </div>
-            <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
-            <div className='icon-button' onClick={onShowFavoriteClickHandler}>
-              {showFavorite ?
-              <div className='icon up-light-icon'></div> :
-              <div className='icon down-light-icon'></div>
-              }
+
+            {/* --- 댓글 관련 버튼 그룹 --- */}
+            <div className='board-detail-bottom-button-group'>
+                <div className='icon-button'>
+                    <div className='icon comment-icon'></div>
+                </div>
+                <div className='board-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
+                {/* 댓글 펼치기/접기 아이콘 버튼 */}
+                <div className='icon-button' onClick={onShowCommentClickHandler}>
+                    {showComment ? 
+                        <div className='icon up-light-icon'></div> : 
+                        <div className='icon down-light-icon'></div>
+                    }
+                </div>
             </div>
-          </div>
-          <div className='board-detail-bottom-button-group'>
-            <div className='icon-button'>
-              <div className='icon comment-icon'></div>
-            </div>
-            <div className='board-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
-            <div className='icon-button' onClick={onShowCommentClickHandler}>
-              {showComment ?
-              <div className='icon up-light-icon'></div> :
-              <div className='icon down-light-icon'></div>
-              }
-            </div>
-          </div>
         </div>
-        {showFavorite && 
-        <div className='board-detail-bottom-favorite-box'>
-          <div className='board-detail-bottom-favorite-container'>
-            <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
-            <div className='board-detail-bottom-favorite-contents'>
-              {favoriteList.map(item=><FavoriteItem favoriteListItem={item} />)}
+
+        {/* --- 좋아요 목록 표시 영역 --- */}
+        {showFavorite && (
+            <div className='board-detail-bottom-favorite-box'>
+                <div className='board-detail-bottom-favorite-container'>
+                    <div className='board-detail-bottom-favorite-title'>{'좋아요 '}<span className='emphasis'>{favoriteList.length}</span></div>
+                    <div className='board-detail-bottom-favorite-contents'>
+                        {favoriteList.map(item => <FavoriteItem key={item.email} favoriteListItem={item} />)} {/* 좋아요 아이템에도 key 추가 권장 */}
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        }
-        {showComment &&
-        <div className='board-detail-bottom-comment-box'>
-          <div className='board-detail-bottom-comment-container'>
-            <div className='board-detail-bottom-comment-title'>{'댓글 '}<span className='emphasis'>{totalCommentCount}</span></div>
-            <div className='board-detail-bottom-comment-list-container'>
-              {viewList.map(item => <CommentItem commentListItem={item} />)}
+        )}
+
+        {/* --- 댓글 전체 박스 (목록, 페이지네이션, 입력창 포함) --- */}
+        {/* ✨ 이 부분이 댓글 관련 UI를 전체적으로 감싸고 조건부 렌더링합니다. */}
+        {showComment && (
+            <div className='board-detail-bottom-comment-box'>
+                <div className='board-detail-bottom-comment-container'>
+                    <div className='board-detail-bottom-comment-title'>
+                        {'댓글 '}<span className='emphasis'>{totalCommentCount}</span>
+                    </div>
+                    <div className='board-detail-bottom-comment-list-container'>
+                        {/* ✨ 이 부분에서 CommentItem에 key와 onDeleteComment prop을 정확히 전달합니다. */}
+                        {viewList.map(commentItemData => (
+                            <CommentItem
+                                key={commentItemData.commentNumber} // 👈 고유한 key prop 필수!
+                                commentListItem={commentItemData}
+                                onDeleteComment={handleDeleteComment} // 👈 삭제 함수 전달!
+                            />
+                        ))}
+                    </div>
+                </div>
+                <div className='divider'></div>
+                <div className='board-detail-bottom-comment-pagination-box'>
+                    <Pagination 
+                        currentPage={currentPage}
+                        currentSection={currentSection}
+                        setCurrentPage={setCurrentPage}
+                        setCurrentSection={setCurrentSection}
+                        viewPageList={viewPageList}
+                        totalSection={totalSection}
+                    />
+                </div>
+                {loginUser !== null && (
+                    <div className='board-detail-bottom-comment-input-box'>
+                        <div className='board-detail-bottom-comment-input-container'>
+                            <textarea ref={commentRef} className='board-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler}/>
+                            <div className='board-detail-bottom-comment-button-box'>
+                                <div className={comment === '' ? 'disable-button' : 'black-button'} onClick={onCommentSubmitButtonClickHandler}>{'댓글달기'}</div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
-          </div>
-          <div className='divider'></div>
-          <div className='board-detail-bottom-comment-pagination-box'>
-            <Pagination 
-              currentPage={currentPage}
-              currentSection={currentSection}
-              setCurrentPage={setCurrentPage}
-              setCurrentSection={setCurrentSection}
-              viewPageList={viewPageList}
-              totalSection={totalSection}
-            />
-          </div>
-          {loginUser !== null &&
-          <div className='board-detail-bottom-comment-input-box'>
-            <div className='board-detail-bottom-comment-input-container'>
-              <textarea ref={commentRef} className='board-detail-bottom-comment-textarea' placeholder='댓글을 작성해주세요.' value={comment} onChange={onCommentChangeHandler}/>
-              <div className='board-detail-bottom-comment-button-box'>
-                <div className={comment === '' ? 'disable-button' : 'black-button'} onClick={onCommentSubmitButtonClickHandler}>{'댓글달기'}</div>
-              </div>
-            </div>
-          </div>
-          }
-        </div>
-        }
-      </div>
-    )
+        )}
+    </div>
+  );
   }
   //          effect: 게시물 번호 path variable이 바뀔때 마다 게시물 조회수 증가          //
   let effectFlag = true;

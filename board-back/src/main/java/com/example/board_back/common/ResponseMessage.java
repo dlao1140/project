@@ -13,10 +13,11 @@ public interface ResponseMessage {
     String DUPLICATE_TEL_NUMBER = "Duplicate telephone number";
     String NOT_EXIST_USER = "This user does not exist";
     String NOT_EXIST_BOARD = "This board does Not exist";
+     String NOT_EXIST_COMMENT = "This comment does not exist";
 
     //HTTP Status Code 401
     String SIGN_IN_FAIL = "Login information mismatch";
-    String AUTHRIZATION_FAIL = "Authorization failed";
+    String AUTHORIZATION_FAIL = "Authorization failed";
 
     //HTTP Status Code 403
     String NO_PERMISSION = "Do not have permission";
