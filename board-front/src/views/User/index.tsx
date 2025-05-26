@@ -30,6 +30,8 @@ export default function User() {
   const navigate = useNavigate();
   //          component: 유저 화면 상단 컴포넌트      //
   const UserTop = () => {
+    //          state: 이메일 상태          //
+    const [email, setEmail] = useState<string>('');
     //          state: 이미지 파일 인풋 참조 상태          //
     const imageInputRef = useRef<HTMLInputElement | null>(null);
     //          state: 닉네임 변경 여부 상태          //
@@ -52,6 +54,7 @@ export default function User() {
       }
 
       const {email, nickname, profileImage} = responseBody as GetUserResponseDto;
+      setEmail(email);
       setNickname(nickname);
       setProfileImage(profileImage);
       const isMypage = email === loginUser?.email;
@@ -166,7 +169,7 @@ export default function User() {
               <div className='user-top-info-nickname'>{nickname}</div>
               }
             </div>
-            <div className='user-top-info-email'>{'email@email.com'}</div>
+            <div className='user-top-info-email'>{email}</div>
           </div>
         </div>
       </div>
@@ -179,7 +182,7 @@ export default function User() {
         currentPage,
         setCurrentPage,
         currentSection,
-        setcurrentSection,
+        setCurrentSection,
         viewList,
         viewPageList,
         totalSection,
@@ -252,7 +255,7 @@ export default function User() {
               currentPage={currentPage}
               currentSection={currentSection}
               setCurrentPage={setCurrentPage}
-              setCurrentSection={setcurrentSection}
+              setCurrentSection={setCurrentSection}
               viewPageList={viewPageList}
               totalSection={totalSection}
             />}

@@ -11,7 +11,8 @@ const top3BoardListMock: BoardListItem[] = [
         "viewCount": 0,
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
-        "writerProfileImage": 'https://www.handmk.com/news/photo/202306/16714_40371_5250.jpg'
+        "writerProfileImage": 'https://www.handmk.com/news/photo/202306/16714_40371_5250.jpg',
+        "imageCount": 3 
     },
     {
         "boardNumber": 1,
@@ -24,6 +25,7 @@ const top3BoardListMock: BoardListItem[] = [
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
         "writerProfileImage": null,
+        "imageCount": 3 
     },
     {
         "boardNumber": 1,
@@ -36,6 +38,7 @@ const top3BoardListMock: BoardListItem[] = [
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
         "writerProfileImage": null,
+        "imageCount": 3 
     }
 ]
 

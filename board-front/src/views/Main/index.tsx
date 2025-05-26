@@ -46,7 +46,7 @@ export default function Main() {
           <div className='main-top-contents-box'>
             <div className='main-top-contents-title'>{'주간 TOP 3 게시글'}</div>
             <div className='main-top-contents'>
-              {top3BoardList.map(top3ListItem => <Top3Item top3ListItem={top3ListItem}/>)}
+              {top3BoardList.map(top3ListItem => <Top3Item key={top3ListItem.boardNumber} top3ListItem={top3ListItem} />)}
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@ export default function Main() {
         currentPage,
         setCurrentPage,
         currentSection,
-        setcurrentSection,
+        setCurrentSection,
         viewList,
         viewPageList,
         totalSection,
@@ -77,6 +77,25 @@ export default function Main() {
       if(code !== 'SU') return;
 
       const {latestList} = responseBody as GetLatestBoardListResponseDto;
+      // --- 👇 테스트 코드: totalSection이 2가 되도록 강제 설정 👇 ---
+      // const testList: BoardListItem[] = [];
+      // // 60개의 더미 항목 생성 (51개~100개 사이면 totalSection이 2가 됩니다)
+      // for (let i = 0; i < 60; i++) {
+      //   testList.push({
+      //     boardNumber: i + 1, // 고유한 boardNumber를 보장합니다.
+      //     title: `테스트 최신 게시물 제목 ${i + 1}`,
+      //     content: `테스트 최신 게시물 내용 ${i + 1}`,
+      //     boardTitleImage: null,
+      //     writeDatetime: `2023-05-26 12:00:00`,
+      //     viewCount: Math.floor(Math.random() * 100),
+      //     commentCount: Math.floor(Math.random() * 10),
+      //     favoriteCount: Math.floor(Math.random() * 50),
+      //     writerNickname: `테스트유저${i}`,
+      //     writerProfileImage: null,
+      //   });
+      // }
+      // setTotalList(testList); // 생성된 테스트 리스트를 사용합니다.
+      // --- 👆 테스트 코드 👆 ---
       setTotalList(latestList);
     }
     //          function: get popular list response 처리 함수          //
@@ -105,14 +124,16 @@ export default function Main() {
           <div className='main-bottom-title'>{'최신 게시물'}</div>
           <div className='main-bottom-contents-box'>
             <div className='main-bottom-current-contents'>
-              {viewList.map(boardListItem => <BoardItem boardListItem={boardListItem}/>)}
+              {viewList.map(boardListItem => <BoardItem key={boardListItem.boardNumber} boardListItem={boardListItem} />)}
             </div>
             <div className='main-bottom-popular-box'>
               <div className='main-bottom-popular-card'>
                 <div className='main-bottom-popular-card-container'>
                   <div className='main-bottom-popular-card-title'>{'인기 검색어'}</div>
                   <div className='main-bottom-popular-card-contens'>
-                    {popularWordList.map(word =><div className='word-badge' onClick={() =>onPopularWordClickHandler(word)}>{word}</div>)}
+                    {popularWordList.map((word, index) => (
+                    <div key={word + index} className="word-badge" onClick={() => onPopularWordClickHandler(word)}>{word}</div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -123,7 +144,7 @@ export default function Main() {
             currentPage={currentPage}
             currentSection={currentSection}
             setCurrentPage={setCurrentPage}
-            setCurrentSection={setcurrentSection}
+            setCurrentSection={setCurrentSection}
             viewPageList={viewPageList}
             totalSection={totalSection}
             />

@@ -167,7 +167,7 @@ export default function BoardDetail() {
       currentPage,
         setCurrentPage,
         currentSection,
-        setcurrentSection,
+        setCurrentSection,
         viewList,
         viewPageList,
         totalSection,
@@ -342,7 +342,7 @@ export default function BoardDetail() {
               currentPage={currentPage}
               currentSection={currentSection}
               setCurrentPage={setCurrentPage}
-              setCurrentSection={setcurrentSection}
+              setCurrentSection={setCurrentSection}
               viewPageList={viewPageList}
               totalSection={totalSection}
             />

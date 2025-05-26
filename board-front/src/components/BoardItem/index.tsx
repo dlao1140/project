@@ -13,7 +13,7 @@ interface Props {
 //          component : Board List Item 컴포넌트          //
 export default function BoardListItem({boardListItem}: Props) {
   //          properties          //
-  const { boardNumber, title, content, boardTitleImage} = boardListItem
+  const { boardNumber, title, content, boardTitleImage, imageCount } = boardListItem
   const { favoriteCount, commentCount, viewCount } = boardListItem
   const { writeDatetime, writerNickname, writerProfileImage } = boardListItem
 
@@ -51,6 +51,12 @@ export default function BoardListItem({boardListItem}: Props) {
         {boardTitleImage !== null&& (
             <div className = 'board-list-item-image-box'>
             <div className = 'board-list-item-image' style={{backgroundImage: `url(${boardTitleImage})`}}></div>
+             {/* ✨ 이미지 개수가 2개 이상일 때만 +N 표시 (썸네일 자체를 1개로 간주) */}
+            {imageCount && imageCount > 1 && (
+                <div className='board-list-item-image-count-badge'>
+                    +{imageCount - 1} 
+                </div>
+            )}
         </div> )}
     </div>
   )

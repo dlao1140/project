@@ -54,6 +54,7 @@ export default function Authentication() {
       const now = new Date().getTime();
       const expires = new Date(now + expirationTime * 1000);
 
+      localStorage.setItem("accessToken", token);
       setCkookie('accessToken', token, { expires, path: MAIN_PATH()});
       navigate(MAIN_PATH());
     }
@@ -490,7 +491,7 @@ export default function Authentication() {
                 <div className='auth-consent-link'>{'더보기 >'}</div>
                 
               </div>
-              <div className='black-large-full-button' onClick={onSignUpButtonClickHandler}>{'회원 가입입'}</div>
+              <div className='black-large-full-button' onClick={onSignUpButtonClickHandler}>{'회원 가입'}</div>
               </>
             )}
             <div className='auth-description-box'>

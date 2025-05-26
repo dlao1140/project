@@ -22,7 +22,7 @@ import com.example.board_back.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

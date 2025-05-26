@@ -12,6 +12,7 @@ const latestBoardListMock: BoardListItem[] = [
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
         "writerProfileImage": null,
+        "imageCount": 3 
     },
     {
         "boardNumber": 1,
@@ -24,6 +25,7 @@ const latestBoardListMock: BoardListItem[] = [
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
         "writerProfileImage": null,
+        "imageCount": 3 
     },
     {
         "boardNumber": 1,
@@ -36,6 +38,7 @@ const latestBoardListMock: BoardListItem[] = [
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
         "writerProfileImage": null,
+        "imageCount": 3 
     },
     {
         "boardNumber": 1,
@@ -48,6 +51,7 @@ const latestBoardListMock: BoardListItem[] = [
         "writeDatetime": "2023.08.18. 00:54:27",
         "writerNickname": "안녕하세요나는주코야키",
         "writerProfileImage": null,
+        "imageCount": 3 
     }
 ]
 

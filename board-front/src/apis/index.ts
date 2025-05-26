@@ -7,6 +7,17 @@ import { PatchBoardRequestDto, PostBoardRequestDto, PostCommentRequestDto } from
 import { PostBoardResponseDto,GetBoardResponseDto, IncreaseViewCountResponseDto, GetFavoriteLiseResponseDto, GetCommentListResponseDto, PutFavoriteResponseDto, PostCommentResponseDto, DeleteBoardResponseDto, PatchBoardResponseDto, GetLatestBoardListResponseDto, GetTop3BoardListResponseDto, GetSearchBoardListResponseDto, GetUserBoardListResponseDto } from "./response/board";
 import { GetPopularListResponseDto, GetRelationListResponoseDto } from "./response/search";
 import { PatchNicknameRequestDto, PatchProfileImageRequestDto } from "./request/user";
+import { Cookies } from 'react-cookie'; 
+
+axios.defaults.withCredentials = true; // ✅ 쿠키 포함 요청 활성화
+
+axios.interceptors.request.use((config) => {
+  const cookies = new Cookies();
+  const accessToken = cookies.get('accessToken');
+  if (accessToken && config.headers)
+    config.headers["Authorization"] = `Bearer ${accessToken}`;
+  return config;
+});
 
 const DOMAIN = 'http://localhost:4000';
 

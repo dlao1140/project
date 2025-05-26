@@ -7,7 +7,7 @@ import com.example.board_back.dto.request.auth.SignInRequestDto;
 import com.example.board_back.dto.request.auth.SignUpRequestDto;
 import com.example.board_back.service.AuthService;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

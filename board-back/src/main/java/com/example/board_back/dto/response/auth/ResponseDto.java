@@ -1,8 +1,8 @@
 package com.example.board_back.dto.response.auth;
 
-public class ResponsDto {
+public class ResponseDto {
 
-    public ResponsDto(String success, String success2) {
+    public ResponseDto(String success, String success2) {
         //TODO Auto-generated constructor stub
     }
 
