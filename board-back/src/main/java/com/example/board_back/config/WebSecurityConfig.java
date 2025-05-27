@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                     "/api/v1/board/*/favorite-list", // 👈 좋아요
                     "/api/v1/board/*/comment-list",  // 👈 댓글
                     "/api/v1/board/*/increase-view-count", // 👈 조회수 증가
+                    "/api/v1/user/**", // ✨ 사용자 정보 조회 경로 추가 (GET 요청에 대해)
                     "/file/**"
                 ).permitAll()
                 .anyRequest().authenticated()
