@@ -9,7 +9,7 @@ interface RollingNumberProps {
   delay?: number
   className?: string
 }
-
+// 테스트 입력
 export default function RollingNumber({
   value,
   type = 'slide',
