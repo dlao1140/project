@@ -61,7 +61,7 @@ export default function Main() {
             // ✨ --- 이 부분이 실제 지도 생성 코드입니다 --- ✨
             const maps = window.kakao.maps; 
             const mapOption = {
-                center: new maps.LatLng(36.3504119, 127.3845475), // 예시: 대전시청 좌표
+                center: new maps.LatLng(36.351073954997, 127.29801308566), // 예시: 대전시청 좌표
                 level: 5 
             };
             try {

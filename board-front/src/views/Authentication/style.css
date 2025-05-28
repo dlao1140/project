@@ -1,4 +1,4 @@
-#auth-wrapper {
+/* #auth-wrapper {
     padding: 100px 0px 150px;
     min-width: 1440px;
     height: calc(100vh - 68px - 100px - 150px);
@@ -11,7 +11,30 @@
     background-image: url(assets/image/auth-background.jpg);
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: cover;
+} */
+ #auth-wrapper {
+    padding: 100px 0px 150px; /* 기존 스타일 유지 */
+    min-width: 1440px; /* 기존 스타일 유지 */
+    height: calc(100vh - 68px - 100px - 150px); /* 기존 스타일 유지 */
+    min-height: 960px; /* 기존 스타일 유지 */
+    display: flex; /* 기존 스타일 유지 */
+    justify-content: center; /* 기존 스타일 유지 */
+    align-items: center; /* 기존 스타일 유지 */
+
+    /* --- 👇 배경 관련 스타일 수정 및 추가 --- */
+    /* background-image: url(assets/image/auth-background.jpg); */ /* 기존 이미지 배경은 주석 처리 또는 삭제 */
+    /* background-position: 50% 50%; */ /* 그라데이션 애니메이션에서 background-position을 사용하므로, 필요시 초기값 설정 또는 @keyframes에서 관리 */
+    /* background-repeat: no-repeat; */ /* 그라데이션에는 기본적으로 적용되지만, 명시해도 괜찮습니다. */
+    
+    color: #fff; /* ✨ 예시 코드의 글자색 (자식 요소에서 별도 색상 지정 안 하면 이 색상 적용) */
+    background: linear-gradient(-45deg, #1d2c41, #B7C9D9, #4FA3F0, #22131a); /* 그라데이션 색상 */
+    background-size: 400% 400%; /* 애니메이션을 위한 배경 크기 확장 */
+    
+    position: relative; /* ✨ 예시 코드의 position (내부에 absolute 요소가 없다면 필수는 아님) */
+    animation: backgroundChange 20s ease-in-out infinite; /* 애니메이션 적용 */
+    overflow: hidden; /* ✨ 예시 코드의 overflow (내용이 넘칠 경우 숨김) */
+    /* --- 👆 배경 관련 스타일 수정 및 추가 --- */
 }
 
 .auth-container {
@@ -21,6 +44,8 @@
     display: grid;
     grid-template-columns: 7fr 5fr;
     column-gap: 78px;
+    position: relative; /* 다른 positioned 요소와의 관계를 위해 명시 */
+    z-index: 2;         /* ✨ 숲 이미지보다 위에 오도록 z-index 설정 */
 }
 
 .auth-jumbotron-box {
@@ -185,3 +210,16 @@
     font-weight: 600;
     line-height: 140%;    
 }
+
+@keyframes backgroundChange {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
