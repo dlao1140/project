@@ -48,6 +48,7 @@ export default function BoardListItem({boardListItem}: Props) {
                 </div>
             </div>  
         </div>
+        {/*썸네일에 이미지가 몇개 더 있는지 알려주는 기능*/}
         {boardTitleImage !== null&& (
             <div className = 'board-list-item-image-box'>
             <div className = 'board-list-item-image' style={{backgroundImage: `url(${boardTitleImage})`}}></div>
