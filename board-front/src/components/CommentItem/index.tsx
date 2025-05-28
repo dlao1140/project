@@ -19,16 +19,16 @@ export default function CommentItem({ commentListItem, onDeleteComment }: Props)
     const { commentNumber, nickname, profileImage, writeDatetime, content, userEmail } = commentListItem;
     const { loginUser } = useLoginUserStore(); // ✨ 로그인 유저 정보 가져오기
 
-    console.log(`--- CommentItem (ID: ${commentNumber}) ---`);
-    console.log('  - 댓글 작성자 Email (userEmail):', userEmail);
-    console.log('  - 로그인 유저 (loginUser):', loginUser);
+    // console.log(`--- CommentItem (ID: ${commentNumber}) ---`);
+    // console.log('  - 댓글 작성자 Email (userEmail):', userEmail);
+    // console.log('  - 로그인 유저 (loginUser):', loginUser);
     if (loginUser) {
-        console.log('  - 로그인 유저 Email (loginUser.email):', loginUser.email);
-        console.log('  - 삭제 아이콘 표시 조건 (loginUser.email === userEmail):', loginUser.email === userEmail);
+        // console.log('  - 로그인 유저 Email (loginUser.email):', loginUser.email);
+        // console.log('  - 삭제 아이콘 표시 조건 (loginUser.email === userEmail):', loginUser.email === userEmail);
     } else {
-        console.log('  - loginUser가 없습니다 (로그아웃 상태 또는 값 누락).');
+        // console.log('  - loginUser가 없습니다 (로그아웃 상태 또는 값 누락).');
     }
-    console.log('----------------------------------------------------');
+    // console.log('----------------------------------------------------');
     //         function: 작성일 경과시간 함수           //
     const getElapsedTime = () => {
         const now = dayjs().add(9, 'hour'); // 한국 시간 기준으로 보정 (필요시)

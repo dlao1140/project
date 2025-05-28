@@ -305,12 +305,12 @@ const PATCH_PROFILE_IMAGE_URL = () => `${API_DOMAIN}/user/profile-image`;
 
 
 export const getUserRequest = async (email: string) => {
-    console.log(`[apis/index.ts] getUserRequest: 사용자 정보 요청 시작 - email: ${email}`); // 요청 시작 로그
+    // console.log(`[apis/index.ts] getUserRequest: 사용자 정보 요청 시작 - email: ${email}`); // 요청 시작 로그
 
     const result = await axios.get(GET_USER_URL(email))
         .then(response => {
             const responseBody: GetUserResponseDto = response.data;
-            console.log('[apis/index.ts] getUserRequest: 성공 응답 받음:', responseBody); // 성공 시 로그
+            // console.log('[apis/index.ts] getUserRequest: 성공 응답 받음:', responseBody); // 성공 시 로그
             return responseBody;
         })
         .catch(error => {
@@ -322,17 +322,17 @@ export const getUserRequest = async (email: string) => {
             }
 
             // 서버가 오류 상태 코드(예: 400)와 함께 응답을 보낸 경우
-            console.log("[apis/index.ts] getUserRequest: 오류 응답 상태 코드:", error.response.status);
+            // console.log("[apis/index.ts] getUserRequest: 오류 응답 상태 코드:", error.response.status);
             // ✨✨✨ 이 로그가 매우 중요합니다! 백엔드가 보낸 {"code":"NU",...} 내용이 찍혀야 합니다. ✨✨✨
-            console.log("[apis/index.ts] getUserRequest: 서버로부터 받은 실제 오류 응답 데이터 (error.response.data):", error.response.data); 
+            // console.log("[apis/index.ts] getUserRequest: 서버로부터 받은 실제 오류 응답 데이터 (error.response.data):", error.response.data); 
             
             const responseBody: ResponseDto = error.response.data; // error.response.data를 ResponseDto 타입으로 가정
-            console.log("[apis/index.ts] getUserRequest: catch 블록에서 반환할 responseBody:", responseBody);
+            // console.log("[apis/index.ts] getUserRequest: catch 블록에서 반환할 responseBody:", responseBody);
             return responseBody; 
         });
 
     // ✨ getUserRequest 함수가 최종적으로 어떤 값을 반환하는지 확인
-    console.log("[apis/index.ts] getUserRequest: 최종 반환될 result 값:", result);
+    // console.log("[apis/index.ts] getUserRequest: 최종 반환될 result 값:", result);
     return result;
 };
 

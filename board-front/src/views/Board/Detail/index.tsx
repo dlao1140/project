@@ -17,6 +17,7 @@ import { Cookies, useCookies } from 'react-cookie';
 import { PostCommentRequestDto } from 'apis/request/board';
 import { usePagination } from 'hooks';
 import { deleteCommentRequest } from 'apis'; // ✨ API 함수 import
+import RollingNumber from 'components/Rolling/RollingNumber'
 
 //         component: 게시물 상세 화면 컴포넌트      //
 export default function BoardDetail() {
@@ -342,7 +343,11 @@ export default function BoardDetail() {
                         <div className='icon favorite-light-icon'></div>
                     }
                 </div>
-                <div className='board-detail-bottom-button-text'>{`좋아요 ${favoriteList.length}`}</div>
+                <RollingNumber
+                  value={favoriteList.length}
+                  type='slide'
+                  className='board-detail-bottom-button-text'
+                />
                 <div className='icon-button' onClick={onShowFavoriteClickHandler}>
                     {showFavorite ?
                         <div className='icon up-light-icon'></div> :
@@ -356,7 +361,11 @@ export default function BoardDetail() {
                 <div className='icon-button'>
                     <div className='icon comment-icon'></div>
                 </div>
-                <div className='board-detail-bottom-button-text'>{`댓글 ${totalCommentCount}`}</div>
+                <RollingNumber
+                  value={totalCommentCount}
+                  type='slide'
+                  className='board-detail-bottom-button-text'
+                />
                 {/* 댓글 펼치기/접기 아이콘 버튼 */}
                 <div className='icon-button' onClick={onShowCommentClickHandler}>
                     {showComment ? 
