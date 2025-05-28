@@ -17,7 +17,7 @@ public class BoardListItemResponseDto{
     private String writeDatetime;
     private String writerNickname;
     private String writerProfileImage;
-    private int imageCount; // ✨ 이미지 개수 필드
+    private int imageCount; // ✨ 이미지 개수 필드 썸네일에 이미지 몇개더 있는지 알려주는 기능
 
     // 생성자
     public BoardListItemResponseDto(BoardListViewEntity boardListViewEntity, int imageCount) {
@@ -30,7 +30,7 @@ public class BoardListItemResponseDto{
         this.writeDatetime = boardListViewEntity.getWriteDatetime();
         this.writerNickname = boardListViewEntity.getWriterNickname();
         this.writerProfileImage = boardListViewEntity.getWriterProfileImage();
-        this.imageCount = imageCount;
+        this.imageCount = imageCount;//썸네일에 이미지 몇개더 있는지 알려주는 기능 
     }
 }
 

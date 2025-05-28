@@ -13,7 +13,7 @@ interface RollingNumberProps {
 export default function RollingNumber({
   value,
   type = 'slide',
-  speed = 100,
+  speed = 200,
   delay = 300,
   className = '',
 }: RollingNumberProps) {
