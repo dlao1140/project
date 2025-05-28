@@ -1,6 +1,7 @@
 // src/components/Rolling/RollingNumber.tsx
+// 롤링기능 코드
 import React, { useEffect, useRef } from 'react'
-import './style.css'
+import './style.css'    
 
 interface RollingNumberProps {
   value: number
